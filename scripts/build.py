@@ -17,40 +17,88 @@ BG = "#EDEDED"
 # ───────────────────────── КОНТЕНТ ─────────────────────────
 NICK = "ZEDKODEX"
 
+TELEGRAM = "https://t.me/fkskrrkdjs"
+
+# Услуги — как на сайте (CODIX-WEB/front/.../Services/typeServices.ts)
+# (название, описание, пункты, иконка lucide, цвет плитки)
 SERVICES = [
-    ("Desktop-приложения",
-     "Кроссплатформенные приложения для Windows и macOS: лёгкие, быстрые, с доступом к системе.",
-     ["Tauri 2", "Rust", "React", "TypeScript"]),
-    ("Сайты и веб-приложения",
-     "Лендинги, личные кабинеты и админ-панели: адаптивные интерфейсы с API и данными в реальном времени.",
-     ["React", "TypeScript", "Vite", "Sass"]),
+    ("Сайты",
+     "Лендинги, интернет-магазины, SaaS и админки — быстрые, адаптивные и на своей кодовой базе, без конструкторов.",
+     ["Лендинг и корпоративный сайт", "Интернет-магазин с оплатой", "SaaS и личный кабинет", "Админка и CRM"],
+     "globe", "#111111"),
     ("Telegram-боты",
-     "Боты для заказов, отзывов, рассылок и поддержки — с админкой, статистикой и уведомлениями.",
-     ["Python", "Telethon", "FastAPI", "SQLite"]),
-    ("Backend и API",
-     "REST и WebSocket API, бизнес-логика, авторизация и интеграции со сторонними сервисами.",
-     ["Rust", "Axum", "Tokio", "FastAPI"]),
+     "Боты и MiniApp для продаж, поддержки и рассылок — с админкой, оплатой и статистикой.",
+     ["MiniApp внутри Telegram", "Оплата и подписки", "Рассылки и автоворонки", "Парсеры и чат-поддержка"],
+     "send", "#2AABEE"),
+    ("Приложения",
+     "Десктопные и мобильные приложения с офлайн-режимом и синхронизацией — одна кодовая база на несколько платформ.",
+     ["Windows и macOS", "iOS и Android", "Офлайн-режим", "Синхронизация данных"],
+     "app-window-mac", "#5B5BD6"),
+    ("Интеграция ИИ",
+     "Встраиваю нейросети в продукт: ассистенты, поиск по документам компании, обработка заявок и генерация контента.",
+     ["Поиск по базе знаний", "ИИ-ассистент в чате", "Разбор и классификация заявок", "Генерация контента"],
+     "brain-circuit", "#E5484D"),
     ("Автоматизация",
-     "Скрипты и сервисы, которые снимают рутину: парсинг, отложенный постинг, связки сервисов.",
-     ["Python", "Telethon", "PowerShell"]),
-    ("Деплой и серверы",
-     "VPS, Docker, nginx и HTTPS, автодеплой — чтобы проект спокойно работал после релиза.",
-     ["Docker", "nginx", "Linux", "SSH"]),
+     "Связываю CRM, почту, склад и таблицы в один сценарий — ручные выгрузки и копипаст уходят, процессы работают сами.",
+     ["Интеграция CRM и сервисов", "Вебхуки и расписания", "Отчёты и выгрузки", "Мониторинг процессов"],
+     "calendar-sync", "#30A46C"),
+]
+WORK_FORMATS = ["Под ключ", "Под ключ + деплой и домен", "Доработка чужого проекта", "Поддержка после запуска"]
+
+# Стек — как на сайте (CODIX-WEB/front/.../Stats/typeStats.ts)
+# (название, иконка simpleicons или URL, цвет иконки, цвет плитки, позиция x/y)
+LANGS = [
+    ("React", "react", "61DAFB", "#20232A", (-0.36, -0.3)),
+    ("TypeScript", "typescript", "FFFFFF", "#3178C6", (-0.2, -0.25)),
+    ("Vue", "vuedotjs", "4FC08D", "#FFFFFF", (0.0, -0.33)),
+    ("JavaScript", "javascript", "000000", "#F7DF1E", (0.22, -0.31)),
+    ("C#", "https://api.iconify.design/mdi/language-csharp.svg", "FFFFFF", "#68217A", (0.38, -0.27)),
+    ("Redis", "redis", "FFFFFF", "#FF4438", (-0.4, -0.02)),
+    ("Python", "python", "3776AB", "#FFFFFF", (0.39, 0.03)),
+    ("Rust", "rust", "FFFFFF", "#111111", (-0.37, 0.28)),
+    ("PostgreSQL", "postgresql", "FFFFFF", "#4169E1", (-0.2, 0.34)),
+    ("SQLite", "sqlite", "FFFFFF", "#003B57", (0.0, 0.4)),
+    ("FastAPI", "fastapi", "FFFFFF", "#009688", (0.19, 0.33)),
+    ("Docker", "docker", "FFFFFF", "#2496ED", (0.37, 0.29)),
+    ("Go", "go", "00ADD8", "#FFFFFF", (-0.28, 0.12)),
 ]
 
-# (заголовок, строки описания) — выноски на схеме «Стек»
-STACK = [
-    ("Frontend", ["React · TypeScript · Vite", "Sass · JavaScript"]),
-    ("Backend", ["Rust · Axum · Tokio", "Python · FastAPI"]),
-    ("Данные и AI", ["SQLite · ONNX Runtime", "нейросети на устройстве"]),
-    ("DevOps", ["Docker · nginx · Linux", "Git · SSH · PowerShell"]),
-]
-
-# (подпись, значение) — добавьте сюда Telegram, почту и т.д.
+# (подпись, значение) — вся секция ведёт в Telegram
 CONTACTS = [
+    ("Telegram", "@fkskrrkdjs"),
     ("GitHub", "@KUZURAKI"),
-    ("Проекты", "CODIX-HUB-RELEASES"),
 ]
+
+ICON_CACHE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "icons")
+
+
+def fetch_icon(key, url):
+    """Скачивает SVG иконки один раз и кладёт в scripts/icons/."""
+    import urllib.request
+    os.makedirs(ICON_CACHE, exist_ok=True)
+    path = os.path.join(ICON_CACHE, key.replace("/", "_") + ".svg")
+    if not os.path.exists(path):
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req) as r, open(path, "wb") as f:
+            f.write(r.read())
+    with open(path, encoding="utf-8") as f:
+        return f.read()
+
+
+def svg_inner(src):
+    import re
+    return re.sub(r"^.*?<svg[^>]*>|</svg>\s*$", "", src.strip(), flags=re.S)
+
+
+def lucide(name):
+    return svg_inner(fetch_icon("lucide-" + name, f"https://unpkg.com/lucide-static@latest/icons/{name}.svg"))
+
+
+def brand_icon(slug):
+    url = slug if slug.startswith("http") else f"https://cdn.simpleicons.org/{slug}"
+    import re
+    paths = re.findall(r'<path[^>]*\sd="([^"]+)"', fetch_icon(slug.split("/")[-1], url))
+    return "".join(f'<path d="{d}"/>' for d in paths)
 
 # 5x7 пиксельный шрифт для LED-матрицы
 FONT = {
@@ -69,6 +117,7 @@ FONT = {
     "T": ["11111", "00100", "00100", "00100", "00100", "00100", "00100"],
     "U": ["10001", "10001", "10001", "10001", "10001", "10001", "01110"],
     "X": ["10001", "10001", "01010", "00100", "01010", "10001", "10001"],
+    "Y": ["10001", "10001", "01010", "00100", "00100", "00100", "00100"],
     "Z": ["11111", "00001", "00010", "00100", "01000", "10000", "11111"],
     " ": ["00000"] * 7,
 }
@@ -149,7 +198,7 @@ COMMON_DEFS = """
 
 # ───────────────────────── HERO ─────────────────────────
 def hero():
-    W, H = 1200, 800
+    W, H = 1200, 700
     defs = """
 <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
   <stop offset="0" stop-color="#F7F7F7"/><stop offset="1" stop-color="#E4E4E4"/>
@@ -162,48 +211,38 @@ def hero():
 </pattern>
 """
     b = [f'<rect width="{W}" height="{H}" rx="24" fill="url(#bg)"/>',
-         f'<rect width="{W}" height="640" rx="24" fill="url(#spot)"/>']
+         f'<rect width="{W}" height="540" rx="24" fill="url(#spot)"/>']
 
-    # навигация
-    b.append(t(48, 54, NICK.lower(), 15, INK, 700, font=MONO))
-    for x, s in [(150, "Услуги"), (226, "Стек"), (282, "Проекты"), (368, "Контакты")]:
-        b.append(t(x, 54, s, 15, extra='text-decoration="underline"'))
-    b.append('<path d="M872 64 h52 a14 14 0 0 0 0-28 a20 20 0 0 0-38-6 a15 15 0 0 0-14 34 z" '
-             'fill="none" stroke="#9A9A9A" stroke-width="1.6"/>')
-    b.append(f'<rect x="878" y="46" width="40" height="14" rx="3" fill="{INK}"/>')
-    b.append(t(898, 57, "ZDX", 10, "#fff", 700, "middle", MONO))
-    b.append(t(950, 48, "GitHub ↗", 15, extra='text-decoration="underline"'))
-    b.append(lines(950, 70, ["github.com/KUZURAKI", "Открыт для новых проектов"], 12.5, GREY, 18))
-
+    top = []  # всё, что над полосой фич, поднимаем на место убранной навигации
     # устройство
-    b.append('<ellipse cx="600" cy="372" rx="370" ry="16" fill="#000" opacity="0.28" filter="url(#soft)"/>')
-    b.append('<rect x="330" y="146" width="540" height="46" rx="12" fill="#FCFCFC" stroke="#D6D6D6"/>')
-    b.append(t(600, 176, "idea → release", 17, "#3A3A3A", 500, "middle", MONO))
-    b.append('<circle cx="372" cy="169" r="15" fill="#F4F4F4" stroke="#CFCFCF"/>'
+    top.append('<ellipse cx="600" cy="372" rx="370" ry="16" fill="#000" opacity="0.28" filter="url(#soft)"/>')
+    top.append('<rect x="330" y="146" width="540" height="46" rx="12" fill="#FCFCFC" stroke="#D6D6D6"/>')
+    top.append(t(600, 176, "idea → release", 17, "#3A3A3A", 500, "middle", MONO))
+    top.append('<circle cx="372" cy="169" r="15" fill="#F4F4F4" stroke="#CFCFCF"/>'
              f'<circle cx="372" cy="169" r="9" fill="{ACC}"/>')
-    b.append(f'<circle cx="826" cy="169" r="15" fill="{ACC}"/><circle cx="826" cy="169" r="9" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.7"/>')
-    b.append('<rect x="240" y="180" width="720" height="182" rx="42" fill="url(#body)" stroke="#C9C9C9"/>')
-    b.append('<rect x="262" y="198" width="676" height="146" rx="24" fill="#0A0A0A"/>')
-    b.append('<rect x="262" y="198" width="676" height="146" rx="24" fill="url(#dots)"/>')
+    top.append(f'<circle cx="826" cy="169" r="15" fill="{ACC}"/><circle cx="826" cy="169" r="9" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.7"/>')
+    top.append('<rect x="240" y="180" width="720" height="182" rx="42" fill="url(#body)" stroke="#C9C9C9"/>')
+    top.append('<rect x="262" y="198" width="676" height="146" rx="24" fill="#0A0A0A"/>')
+    top.append('<rect x="262" y="198" width="676" height="146" rx="24" fill="url(#dots)"/>')
     red = led(NICK, 292, 238, 9, "#FF2A1A", 3.7)
-    b.append(f'<g filter="url(#glow)" opacity="0.85">{red}</g>')
-    b.append(f'<g>{red}<animate attributeName="opacity" values="1;0.82;1;1" dur="3s" repeatCount="indefinite"/></g>')
+    top.append(f'<g filter="url(#glow)" opacity="0.85">{red}</g>')
+    top.append(f'<g>{red}<animate attributeName="opacity" values="1;0.82;1;1" dur="3s" repeatCount="indefinite"/></g>')
     white = led("FULL", 790, 226, 4.5, "#F4F4F4", 1.9) + led("STACK", 790, 270, 4.5, "#F4F4F4", 1.9)
-    b.append(f'<g filter="url(#glow)" opacity="0.5">{white}</g>{white}')
+    top.append(f'<g filter="url(#glow)" opacity="0.5">{white}</g>{white}')
 
     # текст
-    b.append(t(600, 432, f'<tspan font-weight="700">{NICK.lower()}</tspan> — fullstack-разработчик', 30, INK, 400, "middle",
-               extra='letter-spacing="-0.5"'))
-    b.append(t(600, 468, "Desktop-приложения, веб-сервисы, Telegram-боты и автоматизация", 17, "#333", 500, "middle"))
-    b.append(lines(600, 504, ["Беру проект на этапе идеи и довожу до стабильного запуска:",
-                              "интерфейс, API, база данных и сервер — в одних руках."], 15.5, GREY, 24, anchor="middle"))
-    b.append(f'<rect x="452" y="566" width="140" height="44" rx="4" fill="{ACC}"/>')
-    b.append(t(522, 593, "СВЯЗАТЬСЯ", 14, "#fff", 600, "middle", extra='letter-spacing="1"'))
-    b.append(f'<rect x="608" y="566" width="140" height="44" rx="4" fill="none" stroke="{INK}" stroke-width="1.4"/>')
-    b.append(t(678, 593, "ПРОЕКТЫ", 14, INK, 600, "middle", extra='letter-spacing="1"'))
+    top.append(t(600, 434, f"{NICK} — fullstack-разработчик", 30, INK, 500, "middle", extra='letter-spacing="-0.5"'))
+    top.append(lines(600, 474, ["Сайты, Telegram-боты, приложения, интеграция ИИ и автоматизация.",
+                                "Беру задачу целиком — от идеи и дизайна до запуска и поддержки.",
+                                "Код и доступы остаются у вас."], 16, "#555", 26, anchor="middle"))
+    top.append(f'<rect x="452" y="566" width="140" height="44" rx="4" fill="{ACC}"/>')
+    top.append(t(522, 593, "НАПИСАТЬ", 14, "#fff", 600, "middle", extra='letter-spacing="1"'))
+    top.append(f'<rect x="608" y="566" width="140" height="44" rx="4" fill="none" stroke="{INK}" stroke-width="1.4"/>')
+    top.append(t(678, 593, "ПРОЕКТЫ", 14, INK, 600, "middle", extra='letter-spacing="1"'))
+    b.append(f'<g transform="translate(0 -100)">{"".join(top)}</g>')
 
     # полоса фич
-    y0 = 646
+    y0 = 546
     b.append(f'<line x1="0" y1="{y0}" x2="1200" y2="{y0}" stroke="#D3D3D3"/>')
     b.append(f'<line x1="400" y1="{y0}" x2="400" y2="{H}" stroke="#D3D3D3"/><line x1="800" y1="{y0}" x2="800" y2="{H}" stroke="#D3D3D3"/>')
     ic = 'fill="none" stroke="#5A5A5A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"'
@@ -228,69 +267,63 @@ def hero():
 
 # ───────────────────────── 01 УСЛУГИ ─────────────────────────
 def services():
-    W, H = 1200, 790
+    W, H = 1200, 990
     b = [f'<rect width="{W}" height="{H}" rx="24" fill="{BG}"/>',
-         header(70, "01 — УСЛУГИ", "Что я делаю",
-                "Закрываю задачу целиком или беру отдельную часть — фронтенд, бэкенд, бота или деплой.")]
-    for i, (title, desc, tags) in enumerate(SERVICES):
-        x, y = 60 + (i % 3) * 370, 210 + (i // 3) * 280
-        b.append(f'<rect x="{x}" y="{y}" width="340" height="256" rx="16" fill="#fff" filter="url(#shadow)"/>')
-        b.append(t(x + 26, y + 42, f"{i + 1:02d}", 13, ACC, 700, font=MONO))
-        b.append(f'<rect x="{x + 300}" y="{y + 30}" width="14" height="14" rx="7" fill="none" stroke="#CFCFCF"/>')
-        b.append(t(x + 26, y + 82, title, 22))
-        b.append(lines(x + 26, y + 116, wrap(desc, 40), 13.5, "#666", 21))
-        b.append(f'<line x1="{x + 26}" y1="{y + 196}" x2="{x + 314}" y2="{y + 196}" stroke="#EEEEEE"/>')
-        b.append(pills(x + 26, y + 210, tags))
+         header(70, "01 — УСЛУГИ", "Что я делаю", "Выберите то, что вам подходит.")]
+    check = (f'<path d="M0 5 l3.5 3.5 l7-8" fill="none" stroke="{ACC}" stroke-width="2" '
+             'stroke-linecap="round" stroke-linejoin="round"/>')
+    for i, (title, desc, points, icon, tile) in enumerate(SERVICES):
+        x, y = 60 + (i % 3) * 370, 210 + (i // 3) * 390
+        b.append(f'<rect x="{x}" y="{y}" width="340" height="360" rx="16" fill="#fff" filter="url(#shadow)"/>')
+        b.append(t(x + 314, y + 42, f"{i + 1:02d}", 13, ACC, 700, "end", MONO))
+        b.append(f'<rect x="{x + 26}" y="{y + 26}" width="52" height="52" rx="14" fill="{tile}"/>')
+        b.append(f'<g transform="translate({x + 38} {y + 38}) scale(1.167)" fill="none" stroke="#fff" '
+                 f'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{lucide(icon)}</g>')
+        b.append(t(x + 26, y + 120, title, 24))
+        b.append(lines(x + 26, y + 152, wrap(desc, 40), 13.5, "#666", 21))
+        b.append(f'<line x1="{x + 26}" y1="{y + 232}" x2="{x + 314}" y2="{y + 232}" stroke="#EEEEEE"/>')
+        for j, p in enumerate(points):
+            py = y + 262 + j * 25
+            b.append(f'<g transform="translate({x + 28} {py - 10})">{check}</g>')
+            b.append(t(x + 48, py, p, 13.5, "#333"))
+
+    # 6-я ячейка — форматы работы
+    x, y = 60 + 2 * 370, 210 + 390
+    b.append(f'<rect x="{x}" y="{y}" width="340" height="360" rx="16" fill="#0A0A0A"/>')
+    b.append(led("ANY", x + 26, y + 30, 4, ACC, 1.7))
+    b.append(t(x + 26, y + 104, "Любую услугу", 24, "#F2F2F2"))
+    b.append(t(x + 26, y + 134, "можно заказать", 24, "#F2F2F2"))
+    for j, s in enumerate(WORK_FORMATS):
+        py = y + 196 + j * 38
+        b.append(f'<rect x="{x + 26}" y="{py - 20}" width="288" height="30" rx="15" fill="none" stroke="#333"/>')
+        b.append(f'<circle cx="{x + 44}" cy="{py - 5}" r="3.5" fill="{ACC}"/>')
+        b.append(t(x + 58, py, s, 13.5, "#E6E6E6"))
     svg("services.svg", W, H, "".join(b))
 
 
 # ───────────────────────── 02 СТЕК ─────────────────────────
 def stack():
-    W, H = 1200, 640
-    b = [f'<rect width="{W}" height="{H}" rx="24" fill="{BG}"/>',
-         header(64, "02 — СТЕК", "Технологии по категориям",
-                "От интерфейса и API до баз данных, AI и инфраструктуры.")]
-
-    b.append('<rect x="320" y="300" width="560" height="150" rx="44" fill="url(#body)" stroke="#C6C6C6" filter="url(#shadow)"/>')
-    labels = ["FRONTEND", "BACKEND", "OFF", "DATA/AI", "DEVOPS"]
-    for i, s in enumerate(labels):
-        y = 330 + i * 24
-        if s == "BACKEND":
-            b.append(f'<rect x="362" y="{y - 13}" width="72" height="18" rx="9" fill="{ACC}"/>')
-            b.append(t(398, y, s, 10.5, "#fff", 700, "middle", MONO))
-        else:
-            b.append(t(398, y, s, 10.5, "#555", 600, "middle", MONO))
-    b.append('<path d="M436 342 q20 0 30 12" fill="none" stroke="#777" stroke-width="1.4"/>')
-    b.append(f'<rect x="452" y="350" width="78" height="26" rx="13" fill="{ACC}"/>'
-             '<rect x="460" y="358" width="30" height="10" rx="5" fill="#fff" opacity="0.6"/>')
-    b.append('<rect x="560" y="316" width="180" height="118" rx="14" fill="#FCFCFC" stroke="#D3D3D3"/>')
-    b.append(t(650, 382, "git push", 20, "#333", 500, "middle", MONO))
-    b.append(f'<circle cx="760" cy="318" r="16" fill="{ACC}"/>' + t(760, 321, "back", 8, "#fff", 700, "middle", MONO))
-    b.append('<circle cx="816" cy="376" r="48" fill="#FAFAFA" stroke="#D3D3D3"/>')
-    b.append(f'<circle cx="816" cy="376" r="38" fill="none" stroke="{ACC}" stroke-width="2.5" stroke-dasharray="2 4"/>')
-    b.append(t(816, 381, "ok", 13, "#333", 600, "middle", MONO))
-
-    line = 'fill="none" stroke="#9A9A9A" stroke-width="1"'
-    dot = lambda x, y: f'<circle cx="{x}" cy="{y}" r="3" fill="#9A9A9A"/>'
-    targets = [330, 354, 402, 426]
-    for i, ((title, desc), ty) in enumerate(zip(STACK, targets)):
-        y = 240 + i * 82
-        b.append(t(70, y, title, 15, INK, 600))
-        b.append(lines(70, y + 20, desc, 12, GREY, 16))
-        b.append(f'<polyline points="250,{y - 5} 300,{y - 5} 352,{ty - 4}" {line}/>' + dot(352, ty - 4))
-    b.append(t(520, 222, "Git и GitHub", 15, INK, 600))
-    b.append(lines(520, 242, ["Ветки, ревью, релизы —", "каждая задача в истории."], 12, GREY, 16))
-    b.append(f'<line x1="650" y1="270" x2="650" y2="340" {line}/>' + dot(650, 340))
-    b.append(t(910, 222, "Рефакторинг", 15, INK, 600))
-    b.append(lines(910, 242, ["Разбираю чужой код, чиню", "и ускоряю готовые проекты."], 12, GREY, 16))
-    b.append(f'<polyline points="905,236 880,236 768,306" {line}/>' + dot(768, 306))
-    b.append(f'<line x1="491" y1="376" x2="491" y2="520" {line}/>' + dot(491, 376))
-    b.append(t(510, 530, "Фронт ↔ бэк", 15, INK, 600))
-    b.append(t(510, 550, "Переключаюсь без потери контекста", 12, GREY))
-    b.append(f'<polyline points="850,414 900,520 912,520" {line}/>' + dot(850, 414))
-    b.append(t(920, 525, "Кроссплатформа", 15, INK, 600))
-    b.append(lines(920, 545, ["Windows, macOS и Linux", "из одного кода."], 12, GREY, 16))
-    svg("stack.svg", W, H, "".join(b))
+    W, H = 1200, 720
+    cx, cy = 600, 360
+    style = """<style>
+@keyframes fl { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-9px) } }
+.fl { animation: fl ease-in-out infinite; }
+</style>"""
+    b = [f'<rect width="{W}" height="{H}" rx="24" fill="#FAFAFA"/>']
+    for i, (name, slug, color, tile, (px, py)) in enumerate(LANGS):
+        x, y = cx + px * W, cy + py * (H - 60)
+        border = ' stroke="#E2E2E2"' if tile.upper() == "#FFFFFF" else ""
+        tile_svg = (f'<rect x="-38" y="-38" width="76" height="76" rx="20" fill="{tile}"{border} filter="url(#shadow)"/>'
+                    f'<g transform="translate(-21 -21) scale(1.75)" fill="#{color}">{brand_icon(slug)}</g>'
+                    + t(0, 62, name, 11.5, GREY, 500, "middle", MONO))
+        b.append(f'<g transform="translate({x:.0f} {y:.0f})"><g class="fl" '
+                 f'style="animation-duration:{5 + (i % 5) * 0.9:.1f}s;animation-delay:{-i * 0.7:.1f}s">{tile_svg}</g></g>')
+    b.append(t(cx, cy - 92, "02 — СТЕК", 13, ACC, 600, "middle", MONO, 'letter-spacing="1"'))
+    b.append(t(cx, cy - 58, "Один разработчик на весь стек", 16, "#555", 400, "middle"))
+    b.append(lines(cx, cy, ["От сырого кода", "до готового"], 46, INK, 54, weight=400, anchor="middle",
+                   extra='letter-spacing="-1"'))
+    b.append(t(cx, cy + 108, "интерфейса.", 46, ACC, 400, "middle", extra='letter-spacing="-1"'))
+    svg("stack.svg", W, H, "".join(b), style)
 
 
 # ───────────────────────── 03 ПОДХОД ─────────────────────────
@@ -414,19 +447,11 @@ def projects():
     svg("projects.svg", W, H, "".join(b))
 
 
-# ───────────────────────── 05 СТАТИСТИКА ─────────────────────────
-def stats_header():
-    W, H = 1200, 200
-    b = [f'<rect width="{W}" height="{H}" rx="24" fill="{BG}"/>',
-         header(56, "05 — АКТИВНОСТЬ", "Статистика", "Цифры из GitHub — обновляются автоматически.")]
-    svg("stats.svg", W, H, "".join(b))
-
-
-# ───────────────────────── 06 КОНТАКТЫ ─────────────────────────
+# ───────────────────────── 05 КОНТАКТЫ ─────────────────────────
 def contacts():
     W, H = 1200, 400
     b = [f'<rect width="{W}" height="{H}" rx="24" fill="#FAFAFA"/>',
-         header(72, "06 — КОНТАКТЫ", "Есть задача? Напишите.",
+         header(72, "05 — КОНТАКТЫ", "Есть задача? Напишите.",
                 "Расскажите, что нужно сделать, сроки и бюджет — предложу решение и оценку.")]
     cw, gap = 300, 24
     x0 = 600 - (len(CONTACTS) * cw + (len(CONTACTS) - 1) * gap) / 2
@@ -457,8 +482,8 @@ def footer():
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    for f in ("multitool.svg", "live.svg", "modes.svg"):
+    for f in ("multitool.svg", "live.svg", "modes.svg", "stats.svg"):
         p = os.path.join(OUT, f)
         if os.path.exists(p):
             os.remove(p)
-    hero(); services(); stack(); approach(); projects(); stats_header(); contacts(); footer()
+    hero(); services(); stack(); approach(); projects(); contacts(); footer()
