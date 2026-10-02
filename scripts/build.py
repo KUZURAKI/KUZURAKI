@@ -224,9 +224,21 @@ def hero():
     top.append('<rect x="240" y="180" width="720" height="182" rx="42" fill="url(#body)" stroke="#C9C9C9"/>')
     top.append('<rect x="262" y="198" width="676" height="146" rx="24" fill="#0A0A0A"/>')
     top.append('<rect x="262" y="198" width="676" height="146" rx="24" fill="url(#dots)"/>')
-    red = led(NICK, 292, 238, 9, "#FF2A1A", 3.7)
-    top.append(f'<g filter="url(#glow)" opacity="0.85">{red}</g>')
-    top.append(f'<g>{red}<animate attributeName="opacity" values="1;0.82;1;1" dur="3s" repeatCount="indefinite"/></g>')
+    # Мигание как у старой лампы: всё табло иногда «проседает», а одна буква барахлит сама по себе
+    flicker = ('<animate attributeName="opacity" dur="7s" repeatCount="indefinite" '
+               'keyTimes="0;0.40;0.41;0.42;0.43;0.45;0.46;0.70;0.71;0.73;0.74;0.76;1" '
+               'values="1;1;0.35;0.95;0.2;0.9;1;1;0.5;0.85;0.4;1;1"/>')
+    bad = ('<animate attributeName="opacity" dur="4.3s" repeatCount="indefinite" '
+           'keyTimes="0;0.55;0.56;0.58;0.59;0.62;0.63;0.85;0.86;0.88;1" '
+           'values="1;1;0.1;0.9;0.05;0.7;1;1;0.25;1;1"/>')
+    bad_i = 4  # буква «O»
+    step = 6 * 9
+    red_parts = []
+    for i, ch in enumerate(NICK):
+        dots = led(ch, 292 + i * step, 238, 9, "#FF2A1A", 3.7)
+        red_parts.append(f'<g>{dots}{bad}</g>' if i == bad_i else dots)
+    red = "".join(red_parts)
+    top.append(f'<g>{flicker}<g filter="url(#glow)" opacity="0.85">{red}</g>{red}</g>')
     white = led("FULL", 790, 226, 4.5, "#F4F4F4", 1.9) + led("STACK", 790, 270, 4.5, "#F4F4F4", 1.9)
     top.append(f'<g filter="url(#glow)" opacity="0.5">{white}</g>{white}')
 
