@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="200" viewBox="0 0 1200 200"><defs></defs><rect width="1200" height="200" rx="24" fill="#EDEDED"/><text x="600" y="100" font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="44" font-weight="400" fill="#151515" text-anchor="middle" letter-spacing="-1">Статистика</text><text x="600" y="140" font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#444" text-anchor="middle" >Цифры из GitHub — обновляются автоматически, даже когда я сплю.</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="200" viewBox="0 0 1200 200"><defs>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+  <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.10"/>
+</filter>
+<filter id="glow" x="-10%" y="-30%" width="120%" height="160%">
+  <feGaussianBlur stdDeviation="3.5"/>
+</filter>
+<filter id="soft" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="12"/></filter>
+<linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#FAFAFA"/><stop offset="1" stop-color="#D2D2D2"/>
+</linearGradient>
+</defs><rect width="1200" height="200" rx="24" fill="#EDEDED"/><text x="600" y="56" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Courier New', monospace" font-size="13" font-weight="600" fill="#EB4B1F" text-anchor="middle" letter-spacing="1">05 — АКТИВНОСТЬ</text><text x="600" y="110" font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="44" font-weight="400" fill="#151515" text-anchor="middle" letter-spacing="-1">Статистика</text><text x="600" y="148" font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#444" text-anchor="middle" >Цифры из GitHub — обновляются автоматически.</text></svg>
